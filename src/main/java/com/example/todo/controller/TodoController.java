@@ -8,6 +8,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class TodoController {
 
     private final TodoService todoService;
@@ -17,18 +19,29 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo addTodo(@RequestHeader("X-User") String userName, @RequestBody Todo todo) {
+    public Todo addTodo(@RequestHeader(value = "X-User", required = false) String userName,
+                        @RequestBody Todo todo) {
+        if (userName == null || userName.isEmpty()) {
+            userName = "guest"; // default if not provided
+        }
         todo.setUserName(userName);
         return todoService.saveTodo(todo);
     }
 
     @GetMapping
-    public List<Todo> getAllTodos(@RequestHeader("X-User") String userName) {
+    public List<Todo> getAllTodos(@RequestHeader(value = "X-User", required = false) String userName) {
+        if (userName == null || userName.isEmpty()) {
+            userName = "guest";
+        }
         return todoService.getTodosForUser(userName);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTodo(@RequestHeader("X-User") String userName, @PathVariable Long id) {
+    public void deleteTodo(@RequestHeader(value = "X-User", required = false) String userName,
+                           @PathVariable Long id) {
+        if (userName == null || userName.isEmpty()) {
+            userName = "guest";
+        }
         todoService.deleteTodo(id, userName);
     }
 }

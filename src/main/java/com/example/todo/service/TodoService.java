@@ -8,25 +8,27 @@ import java.util.List;
 
 @Service
 public class TodoService {
+
     private final TodoRepository todoRepository;
 
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getTodosForUser(String userName) {
-        return todoRepository.findByUserNameOrderByIdAsc(userName);
-    }
-
     public Todo saveTodo(Todo todo) {
         return todoRepository.save(todo);
     }
 
+    public List<Todo> getTodosForUser(String userName) {
+        return todoRepository.findByUserName(userName);
+    }
+
     public void deleteTodo(Long id, String userName) {
-        todoRepository.findById(id).ifPresent(t -> {
-            if (t.getUserName().equals(userName)) {
-                todoRepository.deleteById(id);
-            }
-        });
+        Todo todo = todoRepository.findById(id).orElseThrow();
+        if (todo.getUserName().equals(userName)) {
+            todoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Not allowed to delete this todo");
+        }
     }
 }
