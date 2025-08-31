@@ -18,17 +18,18 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo addTodo(@RequestBody Todo todo) {
+    public Todo addTodo(@RequestHeader("X-User") String userName, @RequestBody Todo todo) {
+        todo.setUserName(userName);
         return todoService.saveTodo(todo);
     }
 
     @GetMapping
-    public List<Todo> getAllTodos() {
-        return todoService.getAllTodos();
+    public List<Todo> getAllTodos(@RequestHeader("X-User") String userName) {
+        return todoService.getTodosForUser(userName);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTodo(@PathVariable Long id) {
-        todoService.deleteTodo(id);
+    public void deleteTodo(@RequestHeader("X-User") String userName, @PathVariable Long id) {
+        todoService.deleteTodo(id, userName);
     }
 }

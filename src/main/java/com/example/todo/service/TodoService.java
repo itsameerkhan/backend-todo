@@ -14,15 +14,19 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getAllTodos() {
-        return todoRepository.findAll();
+    public List<Todo> getTodosForUser(String userName) {
+        return todoRepository.findByUserNameOrderByIdAsc(userName);
     }
 
     public Todo saveTodo(Todo todo) {
         return todoRepository.save(todo);
     }
 
-    public void deleteTodo(Long id) {
-        todoRepository.deleteById(id);
+    public void deleteTodo(Long id, String userName) {
+        todoRepository.findById(id).ifPresent(t -> {
+            if (t.getUserName().equals(userName)) {
+                todoRepository.deleteById(id);
+            }
+        });
     }
 }

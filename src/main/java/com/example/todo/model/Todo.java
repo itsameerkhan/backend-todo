@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 
 @Entity
 public class Todo {
@@ -12,6 +13,8 @@ public class Todo {
     private Long id;
     private String title;
     private boolean completed;
+    @Column(nullable = false)
+    private String userName; // owner username
 
     // Getters and setters
     public Long getId() { return id; }
@@ -20,4 +23,7 @@ public class Todo {
     public void setTitle(String title) { this.title = title; }
     public boolean isCompleted() { return completed; }
     public void setCompleted(boolean completed) { this.completed = completed; }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 }
