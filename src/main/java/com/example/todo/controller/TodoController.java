@@ -8,8 +8,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
-@CrossOrigin(origins = "https://red-sand-0910ddd00.2.azurestaticapps.net")
-
 public class TodoController {
 
     private final TodoService todoService;
