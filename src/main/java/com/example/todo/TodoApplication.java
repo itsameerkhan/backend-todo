@@ -19,7 +19,7 @@ public class TodoApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/**")
-				.allowedOrigins("https://red-sand-0910ddd00.2.azurestaticapps.net", "http://localhost:3000")
+				.allowedOrigins("https://delightful-grass-0f027aa00.1.azurestaticapps.net/", "http://localhost:3000")
 				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 					.allowedHeaders("*")
 					.allowCredentials(true);
