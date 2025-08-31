@@ -50,4 +50,4 @@ jobs:
           app-name: 'todo-backend-test'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E530A0DE03FE4F7EB3BB44AEBB95384A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A09C82277597481AA863DA30059814E7 }}
